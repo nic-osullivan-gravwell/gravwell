@@ -4,7 +4,8 @@ A powerful data fetcher ingester for Gravwell that collects data from various se
 
 ## Overview
 
-Gravwell Fetcher is a Go-based ingester that collects data from multiple external services and forwards it to Gravwell for analysis. It supports multiple service integrations and can be configured to fetch different types of data from each service.
+Gravwell Fetcher is a Go-based ingester that collects data from multiple external services and forwards it to Gravwell for analysis.
+It supports multiple service integrations and can be configured to fetch different types of data from each service.
 
 ## Supported Services
 

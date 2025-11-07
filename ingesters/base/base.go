@@ -70,15 +70,17 @@ type IngesterBase struct {
 	configOverlay string
 }
 
+var (
+	confLoc        = flag.String("config-file", "", "Location for configuration file")
+	confdLoc       = flag.String("config-overlays", "", "Location for configuration overlay files")
+	populateUUID   = flag.Bool("validate-uuid-config", false, "Validate configurations and ensure an ingester UUID is in place")
+	verbose        = flag.Bool("v", false, "Display verbose status updates to stdout")
+	stderrOverride = flag.String("stderr", "", "Redirect stderr to a shared memory file")
+	ver            = flag.Bool("version", false, "Print the version information and exit")
+)
+
 func Init(ibc IngesterBaseConfig) (ib IngesterBase, err error) {
 	ib.IngesterBaseConfig = ibc
-	confLoc := flag.String("config-file", ibc.DefaultConfigLocation, "Location for configuration file")
-	confdLoc := flag.String("config-overlays", ibc.DefaultConfigOverlayLocation, "Location for configuration overlay files")
-	populateUUID := flag.Bool("validate-uuid-config", false, "Validate configurations and ensure an ingester UUID is in place")
-	verbose := flag.Bool("v", false, "Display verbose status updates to stdout")
-	stderrOverride := flag.String("stderr", "", "Redirect stderr to a shared memory file")
-	ver := flag.Bool("version", false, "Print the version information and exit")
-
 	flag.Parse()
 	if *ver {
 		version.PrintVersion(os.Stdout)
@@ -87,6 +89,12 @@ func Init(ibc IngesterBaseConfig) (ib IngesterBase, err error) {
 	}
 	if err = ibc.validate(); err != nil {
 		return
+	}
+	if *confLoc == "" {
+		confLoc = &ibc.DefaultConfigLocation
+	}
+	if *confdLoc == "" {
+		confdLoc = &ibc.DefaultConfigOverlayLocation
 	}
 	validate.ValidateIngesterConfig(ib.GetConfigFunc, *confLoc, *confdLoc)
 
