@@ -202,6 +202,7 @@ const (
 	ALERTS_ID_SAMPLE_URL             = `/api/alerts/%s/sample`
 	ALERTS_VALIDATE_DISPATCHER_URL   = `/api/alerts/validate/dispatcher`
 	ALERTS_VALIDATE_CONSUMER_URL     = `/api/alerts/validate/consumer`
+	FETCHERS_URL                     = "/api/fetchers"
 	// Special APIs for installing licenses
 	LICENSE_INIT_UPLOAD = `/license`
 	LICENSE_INIT_STATUS = `/license/status`
@@ -742,4 +743,8 @@ func mfaClearAllUrl() string {
 
 func mfaGenerateRecoveryCodesUrl() string {
 	return MFA_RECOVERY_GENERATE_PATH
+}
+
+func fetchersUrl() string {
+	return FETCHERS_URL
 }
